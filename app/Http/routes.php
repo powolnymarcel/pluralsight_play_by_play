@@ -32,7 +32,10 @@ Route::get('produit/{id}', function ($id) {
 
 //Avec un throttle de 5tentatives par 3minutes
 Route::group(['prefix'=>'api', 'middleware' => 'throttle:15,3'],function(){
-    Route::get('produit/{id}', function ($id) {
-        return $produit=Produit::find($id);
-    });
+//    Route::get('produit/{id}', function ($id) {
+//        return $produit=Produit::find($id);
+//    });
+
+    Route::resource('produits', 'ProduitController', ['only' => ['index', 'store', 'update']]);
+    Route::resource('produit.description', 'DescriptionController', ['only' => ['index', 'store']]);
 });
