@@ -17,6 +17,7 @@
                 display: table;
                 font-weight: 100;
                 font-family: 'Lato';
+                background-color: gold;
             }
 
             .container {
@@ -39,6 +40,11 @@
         <div class="container">
             <div class="content">
                 <div class="title">Laravel 5</div>
+
+@foreach($prod as $p)
+                    {{$p->nom}}<br>
+                    {{$p->description->body}}
+    @endforeach
             </div>
         </div>
     </body>

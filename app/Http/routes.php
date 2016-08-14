@@ -1,4 +1,5 @@
 <?php
+use App\Produit;
 
 /*
 |--------------------------------------------------------------------------
@@ -12,5 +13,26 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    $produit=Produit::where('id','=',2)->get();
+    return view('welcome')->withProd($produit);
+});
+
+//Test via POSTMAN
+
+Route::get('produits', function () {
+    return $produits=Produit::all();
+    //return $produits=Produit::paginate(5);
+});
+
+Route::get('produit/{id}', function ($id) {
+    return $produit=Produit::find($id);
+//    $produit=Produit::find($id);
+//    return $produit->description;
+});
+
+//Avec un throttle de 5tentatives par 3minutes
+Route::group(['prefix'=>'api', 'middleware' => 'throttle:15,3'],function(){
+    Route::get('produit/{id}', function ($id) {
+        return $produit=Produit::find($id);
+    });
 });
